@@ -1,0 +1,9 @@
+---
+# file: roles/git2/tasks/setup-Debian.yml
+
+# install Git2
+- name: Add Git2 repository
+  apt_repository: repo='ppa:git-core/ppa'
+
+- name: be sure Git2 is installed
+  apt: name=git state=present update_cache=yes

@@ -1,0 +1,18 @@
+---
+# file: roles/git2/tasks/setup-RedHat.yml
+
+# install Git2
+- name: Add EPEL, IUS repository
+  yum: name={{ item }}
+  with_items:
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    - https://centos7.iuscommunity.org/ius-release.rpm
+
+- name: EPEL and IUS repos are disabled by default
+  replace: dest=/etc/yum.repos.d/{{item}} regexp="enabled *= *1" replace="enabled=0"
+  with_items:
+    - epel.repo
+    - ius.repo
+
+- name: be sure git2u is installed on RedHat family
+  package: name=git2u state=present enablerepo=ius
