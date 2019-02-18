@@ -3,10 +3,12 @@
 
 # install Git2
 - name: Add EPEL, IUS repository
-  yum: name={{ item }}
-  with_items:
-    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    - https://centos7.iuscommunity.org/ius-release.rpm
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - https://centos7.iuscommunity.org/ius-release.rpm
 
 - name: EPEL and IUS repos are disabled by default
   replace: dest=/etc/yum.repos.d/{{item}} regexp="enabled *= *1" replace="enabled=0"
